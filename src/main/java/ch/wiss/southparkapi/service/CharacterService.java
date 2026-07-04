@@ -3,6 +3,7 @@ package ch.wiss.southparkapi.service;
 
 import ch.wiss.southparkapi.dto.CharacterDTO;
 import ch.wiss.southparkapi.dto.CharacterFormDTO;
+import ch.wiss.southparkapi.exception.ResourceNotFoundException;
 import ch.wiss.southparkapi.mapper.CharacterMapper;
 import ch.wiss.southparkapi.model.SouthParkCharacter;
 import ch.wiss.southparkapi.repository.CharacterRepository;
@@ -30,7 +31,8 @@ public class CharacterService {
     }
 
     public CharacterDTO getCharacterById(Long id) {
-        SouthParkCharacter character = characterRepository.findById(id).orElseThrow();
+        SouthParkCharacter character = characterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Character with id " + id + " was not found"));
 
         return characterMapper.toDTO(character);
     }
@@ -44,7 +46,8 @@ public class CharacterService {
 
 
     public CharacterDTO updateCharacter(Long id, CharacterFormDTO formDTO) {
-        SouthParkCharacter character = characterRepository.findById(id).orElseThrow();
+        SouthParkCharacter character = characterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Character with id " + id + " was not found"));
 
         characterMapper.updateEntity(character, formDTO);
         SouthParkCharacter savedCharacter = characterRepository.save(character);
@@ -54,7 +57,8 @@ public class CharacterService {
     }
 
     public void deleteCharacter(Long id) {
-        SouthParkCharacter character = characterRepository.findById(id).orElseThrow();
+        SouthParkCharacter character = characterRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Character with id " + id + " was not found"));
 
         characterRepository.delete(character);
 

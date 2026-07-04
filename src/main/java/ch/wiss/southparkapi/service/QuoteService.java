@@ -2,6 +2,7 @@ package ch.wiss.southparkapi.service;
 
 import ch.wiss.southparkapi.dto.QuoteDTO;
 import ch.wiss.southparkapi.dto.QuoteFormDTO;
+import ch.wiss.southparkapi.exception.ResourceNotFoundException;
 import ch.wiss.southparkapi.mapper.QuoteMapper;
 import ch.wiss.southparkapi.model.Quote;
 import ch.wiss.southparkapi.model.SouthParkCharacter;
@@ -37,12 +38,14 @@ public class QuoteService {
 
     public QuoteDTO getQuoteById(Long id) {
         Quote quote = quoteRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Quote with id " + id + " was not found"));
 
         return quoteMapper.toDTO(quote);
     }
 
     public List<QuoteDTO> getQuotesByCharacterId(Long characterId) {
+        characterRepository.findById(characterId)
+                .orElseThrow(() -> new ResourceNotFoundException("Character with id " + characterId + " was not found"));
         return quoteRepository.findByCharacterId(characterId)
                 .stream()
                 .map(quoteMapper::toDTO)
@@ -52,7 +55,7 @@ public class QuoteService {
 
     public QuoteDTO createQuote(Long characterId, QuoteFormDTO formDTO) {
         SouthParkCharacter character = characterRepository.findById(characterId)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Character with id " + characterId + " was not found"));
 
         Quote quote = quoteMapper.toEntity(formDTO, character);
         Quote savedQuote = quoteRepository.save(quote);
@@ -62,7 +65,7 @@ public class QuoteService {
 
     public QuoteDTO updateQuote(Long id, QuoteFormDTO formDTO) {
         Quote quote = quoteRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Quote with id " + id + " was not found"));
 
         quoteMapper.updateEntity(quote, formDTO);
         Quote savedQuote = quoteRepository.save(quote);
@@ -72,7 +75,7 @@ public class QuoteService {
 
     public void deleteQuote(Long id) {
         Quote quote = quoteRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Quote with id " + id + " was not found"));
 
         quoteRepository.delete(quote);
     }

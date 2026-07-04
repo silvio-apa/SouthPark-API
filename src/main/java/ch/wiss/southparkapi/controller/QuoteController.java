@@ -3,15 +3,9 @@ package ch.wiss.southparkapi.controller;
 import ch.wiss.southparkapi.dto.QuoteDTO;
 import ch.wiss.southparkapi.dto.QuoteFormDTO;
 import ch.wiss.southparkapi.service.QuoteService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,12 +39,12 @@ public class QuoteController {
 
     @PostMapping("/api/characters/{characterId}/quotes")
     @ResponseStatus(HttpStatus.CREATED)
-    public QuoteDTO createQuote(@PathVariable Long characterId, @RequestBody QuoteFormDTO formDTO) {
+    public QuoteDTO createQuote(@PathVariable Long characterId, @Valid @RequestBody QuoteFormDTO formDTO) {
         return quoteService.createQuote(characterId, formDTO);
     }
 
     @PutMapping("/api/quotes/{id}")
-    public QuoteDTO updateQuote(@PathVariable Long id, @RequestBody QuoteFormDTO formDTO) {
+    public QuoteDTO updateQuote(@PathVariable Long id, @Valid @RequestBody QuoteFormDTO formDTO) {
         return quoteService.updateQuote(id, formDTO);
     }
 
