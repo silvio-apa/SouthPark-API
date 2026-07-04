@@ -6,10 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
+import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Represents a South Park charakter stored in the database.
+ * Represents a South Park character stored in the database.
  */
 
 @Entity
@@ -39,6 +42,9 @@ public class SouthParkCharacter {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @OneToMany(mappedBy = "character")
+    private List<Quote> quotes = new ArrayList<>();
 
     public SouthParkCharacter() {
 
@@ -84,6 +90,10 @@ public class SouthParkCharacter {
         return imageUrl;
     }
 
+    public List<Quote> getQuotes() {
+        return quotes;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -110,5 +120,9 @@ public class SouthParkCharacter {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public void setQuotes(List<Quote> quotes) {
+        this.quotes = quotes;
     }
 }
