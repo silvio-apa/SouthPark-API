@@ -11,5 +11,5 @@ public record CharacterFormDTO(
         String occupation,
         String status,
         String imageUrl
-  ) {
+) {
 }

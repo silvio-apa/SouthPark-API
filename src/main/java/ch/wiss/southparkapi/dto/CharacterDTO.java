@@ -13,7 +13,7 @@ public record CharacterDTO(
         String occupation,
         String status,
         String imageUrl
-    ) {
+) {
 
-    }
+}
 

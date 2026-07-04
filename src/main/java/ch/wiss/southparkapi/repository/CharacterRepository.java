@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Provides database access for South Park characters.
  */
-public interface  CharacterRepository extends JpaRepository<SouthParkCharacter, Long> {
+public interface CharacterRepository extends JpaRepository<SouthParkCharacter, Long> {
 }

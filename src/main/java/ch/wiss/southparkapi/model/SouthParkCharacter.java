@@ -22,7 +22,6 @@ public class SouthParkCharacter {
     private Long id;
 
 
-
     @Column(nullable = false, length = 100)
     private String name;
 
@@ -45,7 +44,7 @@ public class SouthParkCharacter {
 
     }
 
-    public SouthParkCharacter(String name, Integer age, String gender, String occupation, String status, String imageUrl){
+    public SouthParkCharacter(String name, Integer age, String gender, String occupation, String status, String imageUrl) {
         this.name       = name;
         this.age        = age;
         this.gender     = gender;
@@ -63,7 +62,6 @@ public class SouthParkCharacter {
     public String getName() {
         return name;
     }
-
 
 
     public Integer getAge() {
